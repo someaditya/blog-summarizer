@@ -17,7 +17,7 @@ SENTENCES_COUNT = 5
 
 if __name__ == "__main__":
 
-	with open('tripotoblogs.csv', 'rU') as csvfile:
+	with open('blogslist.csv', 'rU') as csvfile:
     	
    		for row in csvfile:
         		url = row
