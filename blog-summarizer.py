@@ -29,6 +29,13 @@ SENTENCES_COUNT = 5
 
 if __name__ == "__main__":
 
+    list = []
+
+    r = urllib.urlopen('https://www.tripoto.com/trip').read()
+    soup = BeautifulSoup(r)
+    talks= soup.find_all("a",class_='ga-link')
+  
+
     with open('blogslist.csv', 'rU') as csvfile:
     	
         summary = " "
@@ -44,6 +51,8 @@ if __name__ == "__main__":
     			summarizer.stop_words = get_stop_words(LANGUAGE)
                 
                         for sentence in summarizer(parser.document, SENTENCES_COUNT):
+                            file = open("summary.txt","a")
+                            file.write(str(sentence).encode('utf-8')+"\n") 
                             summary = summary + str(sentence).encode('utf-8')
                             print(summary)
 
@@ -52,3 +61,4 @@ if __name__ == "__main__":
                             writer = csv.writer(csvFile)
                             writer.writerow(row)
                             summary = " "
+
