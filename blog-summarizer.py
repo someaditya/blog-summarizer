@@ -31,13 +31,21 @@ if __name__ == "__main__":
 
     list = []
 
-    r = urllib.urlopen('https://www.tripoto.com/trip').read()
+    r = urllib.urlopen('https://www.tripoto.com/search?keywords=&amount_min=0&amount_max=10000&duration_min=0&duration_max=300&sort=popularity').read()
     soup = BeautifulSoup(r)
-    talks= soup.find_all("a",class_='ga-link')
+    talks= soup.find_all("a",class_='ga-link',itemprop="url")
+    for text in talks:
+        link = text.get('href')
+        print("Creating the list of links")
+        with open('blogslist.csv', 'a') as csvFile:
+                            row = [link]
+                            print(row)
+                            writer = csv.writer(csvFile)
+                            writer.writerow(row)
   
 
     with open('blogslist.csv', 'rU') as csvfile:
-    	
+    	print("Reading the list of links")
         summary = " "
         for row in csvfile:
         		url = row
